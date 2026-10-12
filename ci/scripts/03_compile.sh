@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 03: compile sources
+# Script 03: compile sources
 set -euo pipefail
 
 echo "=== [03] Compiling ==="

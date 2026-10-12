@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 01: validate the manifest (pom.xml)
+# Script 01: validate the manifest (pom.xml)
 set -euo pipefail
 
 echo "=== [01] Validating manifest (pom.xml) ==="

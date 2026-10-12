@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 02: resolve dependencies
+# Script 02: resolve dependencies
 set -euo pipefail
 
 echo "=== [02] Resolving dependencies ==="

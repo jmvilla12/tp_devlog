@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stage 04: run unit tests
+# Script 04: run unit tests
 set -euo pipefail
 
 echo "=== [04] Running unit tests ==="
