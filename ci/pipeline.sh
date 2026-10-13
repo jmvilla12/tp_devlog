@@ -15,10 +15,10 @@ LOG_FILE="$LOG_DIR/pipeline_$RUN_ID.log"
 # Scripts, in execution order
 SCRIPTS=(
     "01_validate.sh"
+    "05_lint.sh"
     "02_dependencies.sh"
     "03_compile.sh"
     "04_test.sh"
-    "05_lint.sh"
     "06_coverage.sh"
 )
 
