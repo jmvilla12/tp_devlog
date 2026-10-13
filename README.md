@@ -31,14 +31,15 @@ When the pipeline succeeds, the app runs in a container called `tp_devlog-app`:
 
 | Order | Script | What it does |
 |---|---|---|
-| 1 | `01_validate.sh` | `mvn clean validate`, checks the pom.xml |
-| 2 | `05_lint.sh` | Checkstyle, with the rules from `checkstyle.xml` |
-| 3 | `02_dependencies.sh` | Resolves dependencies and prints the tree |
-| 4 | `03_compile.sh` | Compiles the sources |
-| 5 | `04_test.sh` | Runs the unit tests (JaCoCo records coverage here) |
-| 6 | `06_coverage.sh` | Coverage report, fails below 80% line coverage |
-| 7 | `07_package.sh` | Builds the jar |
-| 8 | `08_deploy.sh` | Builds the Docker image, swaps the container, waits for the health check |
+| 1 | `00_check_state.sh` | Checks the git state: in sync with origin, uncommitted changes |
+| 2 | `01_validate.sh` | `mvn clean validate`, checks the pom.xml |
+| 3 | `05_lint.sh` | Checkstyle, with the rules from `checkstyle.xml` |
+| 4 | `02_dependencies.sh` | Resolves dependencies and prints the tree |
+| 5 | `03_compile.sh` | Compiles the sources |
+| 6 | `04_test.sh` | Runs the unit tests (JaCoCo records coverage here) |
+| 7 | `06_coverage.sh` | Coverage report, fails below 80% line coverage |
+| 8 | `07_package.sh` | Builds the jar |
+| 9 | `08_deploy.sh` | Builds the Docker image, swaps the container, waits for the health check |
 | - | `09_rollback.sh` | Only runs when stage 8 fails |
 
 Lint runs second even though its file is numbered 05. It's quick and works on source code, so if the style is broken there's no reason to wait for the tests to find out. The real order comes from the `SCRIPTS` array in `ci/pipeline.sh`, not from the file names.

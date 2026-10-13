@@ -14,6 +14,7 @@ LOG_FILE="$LOG_DIR/pipeline_$RUN_ID.log"
 
 # Scripts, in execution order
 SCRIPTS=(
+    "00_check_state.sh"
     "01_validate.sh"
     "05_lint.sh"
     "02_dependencies.sh"
