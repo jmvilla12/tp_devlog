@@ -20,7 +20,13 @@ SCRIPTS=(
     "03_compile.sh"
     "04_test.sh"
     "06_coverage.sh"
+    "07_package.sh"
+    "08_deploy.sh"
 )
+
+# Stage to run if the deploy stage fails
+DEPLOY_SCRIPT="08_deploy.sh"
+ROLLBACK_SCRIPT="09_rollback.sh"
 
 mkdir -p "$LOG_DIR"
 
@@ -48,6 +54,20 @@ for script in "${SCRIPTS[@]}"; do
         log "<<< Script $script SUCCEEDED ($((SECONDS - script_start))s)"
     else
         log "<<< Script $script FAILED with exit code $rc ($((SECONDS - script_start))s)"
+        
+        if [ "$script" = "$DEPLOY_SCRIPT" ]; then
+            log ">>> Deployment failed, starting rollback ($ROLLBACK_SCRIPT)"
+            set +e
+            bash "$SCRIPTS_DIR/$ROLLBACK_SCRIPT" 2>&1 | tee -a "$LOG_FILE"
+            rollback_rc=${PIPESTATUS[0]}
+            set -e
+            if [ "$rollback_rc" -eq 0 ]; then
+                log "<<< Rollback SUCCEEDED, previous version restored"
+            else
+                log "<<< Rollback FAILED with exit code $rollback_rc"
+            fi
+        fi
+
         log "Pipeline $RUN_ID FAILED (total $((SECONDS - pipeline_start))s)"
         exit "$rc"
     fi

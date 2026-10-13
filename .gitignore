@@ -34,3 +34,6 @@ build/
 
 ### CI logs ###
 ci/logs/
+
+### Deployment state ###
+ci/state/
