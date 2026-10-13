@@ -4,7 +4,7 @@ set -euo pipefail
 
 echo "=== [01] Validating manifest (pom.xml) ==="
 
-if ./mvnw -B validate; then
+if ./mvnw -B clean validate; then
     echo "[01] OK: pom.xml is valid"
     exit 0
 else
